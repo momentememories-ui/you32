@@ -38,7 +38,7 @@
         .pass-dots { display: flex; gap: 15px; margin-bottom: 20px; }
         .dot { width: 15px; height: 15px; border: 2px solid var(--primary); border-radius: 50%; transition: 0.2s; }
         .dot.active { background: var(--primary); transform: scale(1.2); box-shadow: 0 0 10px var(--primary); }
-        #error-msg { height: 20px; color: var(--primary); font-size: 0.8rem; margin-bottom: 20px; }
+        #error-msg { height: 20px; color: var(--primary); font-size: 0.8rem; margin-bottom: 20px; text-align: center; }
         .keypad { display: grid; grid-template-columns: repeat(3, 80px); gap: 15px; }
         .key { 
             width: 80px; height: 80px; background: white; border-radius: 50%;
@@ -50,35 +50,36 @@
 
         /* --- Main Content --- */
         #main-app { display: none; padding-bottom: 120px; }
-        section { min-height: 100vh; padding: 40px 20px; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; z-index: 1; }
+        section { min-height: 100vh; padding: 40px 20px; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
 
-        .calendar-wrap { display: flex; gap: 10px; margin-bottom: 10px; }
+        .calendar-wrap { display: flex; gap: 10px; margin-bottom: 10px; justify-content: center; }
         .calendar-card {
             background: white; width: 90px; height: 110px; border-radius: 15px;
             box-shadow: 0 8px 15px rgba(0,0,0,0.05); overflow: hidden; border: 1px solid #eee;
         }
         .cal-top { background: var(--primary); height: 28px; color: white; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 600; }
-        .cal-num { font-size: 1.5rem; font-weight: 600; color: var(--text); padding-top: 15px; display: block; text-align: center; }
-        .cal-unit { font-size: 0.6rem; color: #bbb; display: block; text-align: center; }
+        .cal-num { font-size: 1.5rem; font-weight: 600; color: var(--text); padding-top: 15px; display: block; }
+        .cal-unit { font-size: 0.6rem; color: #bbb; display: block; }
 
         .clock-container {
             background: #fff; padding: 15px 25px; border-radius: 50px;
             box-shadow: 0 10px 25px rgba(255, 143, 163, 0.2);
-            border: 4px solid var(--secondary); display: flex; gap: 10px; align-items: center; margin: 20px 0;
+            border: 4px solid var(--secondary); display: flex; gap: 10px; align-items: center; margin: 20px 0; justify-content: center;
         }
         .clock-val { font-family: 'Orbitron', sans-serif; font-size: 1.5rem; color: var(--primary); }
 
-        /* --- Number 4 Grid --- */
+        /* --- Photo Grid Layout (Digit 4) --- */
+        .photo-container { width: 100%; max-width: 350px; margin: 0 auto; }
         .number-grid { 
             display: grid; 
-            grid-template-columns: repeat(3, 25vmin); 
-            grid-template-rows: repeat(4, 25vmin); 
+            grid-template-columns: repeat(3, 1fr); 
+            grid-template-rows: repeat(4, 100px); 
             gap: 10px; 
-            justify-content: center;
+            margin-bottom: 20px;
         }
-        .img-item { width: 100%; height: 100%; object-fit: cover; border-radius: 12px; border: 3px solid white; box-shadow: 0 5px 15px rgba(0,0,0,0.1); cursor: pointer; }
+        .img-item { width: 100%; height: 100%; object-fit: cover; border-radius: 10px; border: 2px solid white; box-shadow: 0 4px 10px rgba(0,0,0,0.1); cursor: pointer; }
         
-        /* Layout for Digit 4 */
+        /* Grid mapping for number 4 */
         .n1 { grid-column: 1; grid-row: 1; }
         .n2 { grid-column: 1; grid-row: 2; }
         .n3 { grid-column: 1; grid-row: 3; }
@@ -86,43 +87,40 @@
         .n5 { grid-column: 3; grid-row: 3; }
         .n6 { grid-column: 3; grid-row: 1 / 5; }
 
+        .extra-photos { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 10px; }
+        .extra-item { width: 70px; height: 70px; object-fit: cover; border-radius: 8px; border: 2px solid white; box-shadow: 0 3px 8px rgba(0,0,0,0.1); }
+
         /* --- Envelope & Paper --- */
         .envelope-container { position: relative; height: 450px; display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; }
-        .envelope { width: 240px; height: 150px; background: #ffc1cc; border-radius: 0 0 10px 10px; position: relative; cursor: pointer; z-index: 10; margin-top: 50px; transition: 0.3s; }
+        .envelope { width: 240px; height: 150px; background: #ffc1cc; border-radius: 0 0 10px 10px; position: relative; cursor: pointer; z-index: 10; margin-top: 50px; }
         .envelope::before { content: ''; position: absolute; top: -100px; left: 0; border-left: 120px solid transparent; border-right: 120px solid transparent; border-bottom: 100px solid #ff8fa3; transition: 0.5s; z-index: 12; transform-origin: bottom; }
         .envelope.open::before { transform: rotateX(180deg); z-index: 1; }
-        .paper { position: absolute; top: 10px; left: 10px; width: 220px; height: 130px; background: white; border-radius: 5px; transition: 0.7s; z-index: 5; padding: 20px; box-sizing: border-box; overflow-y: auto; }
+        .paper { position: absolute; top: 10px; left: 10px; width: 220px; height: 130px; background: white; border-radius: 5px; transition: 0.7s; z-index: 5; padding: 20px; box-sizing: border-box; overflow-y: auto; text-align: center; }
         .envelope.open .paper { transform: translateY(-220px); height: 380px; width: 300px; left: -30px; z-index: 15; box-shadow: 0 15px 35px rgba(0,0,0,0.15); }
-        .tap-text { font-size: 0.9rem; color: var(--primary); margin-top: 15px; animation: bounce 1.5s infinite; font-weight: 500; z-index: 11; position: relative; }
-        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(5px); } }
 
         /* --- Gift Boxes --- */
-        .boxes-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 35px; max-width: 300px; margin: 0 auto; }
-        .gift-box { font-size: 65px; cursor: pointer; display: inline-block; filter: drop-shadow(0 5px 10px rgba(0,0,0,0.1)); animation: gentle-shake 2s ease-in-out infinite; transition: transform 0.2s; }
-        .gift-box:active { transform: scale(0.9); }
-        @keyframes gentle-shake { 0%, 100% { transform: rotate(0deg); } 25% { transform: rotate(3deg); } 50% { transform: rotate(-3deg); } 75% { transform: rotate(2deg); } }
-        .box-selected-shake { animation: box-selected-shake 0.8s ease-in-out; }
-        @keyframes box-selected-shake { 0%, 100% { transform: scale(1) rotate(0); } 20% { transform: scale(1.1) rotate(15deg); } 40% { transform: scale(1.1) rotate(-15deg); } 60% { transform: scale(1.1) rotate(10deg); } 80% { transform: scale(1.1) rotate(-10deg); } }
+        .boxes-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; max-width: 300px; margin: 0 auto; }
+        .gift-box { font-size: 60px; cursor: pointer; animation: gentle-shake 2s infinite; }
+        @keyframes gentle-shake { 0%, 100% { transform: rotate(0deg); } 50% { transform: rotate(5deg); } }
 
-        /* --- Modal & UI --- */
-        .modal { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0, 0, 0, 0); backdrop-filter: blur(0px); z-index: 10000; align-items: center; justify-content: center; transition: background 0.4s ease, backdrop-filter 0.4s ease; }
-        .modal.active { display: flex; background: var(--overlay-bg); backdrop-filter: blur(8px); }
-        .modal-content { display: flex; flex-direction: column; align-items: center; transform: scale(0.5); opacity: 0; transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.4s ease; z-index: 10002; width: 90%; max-width: 400px; }
-        .modal.active .modal-content { transform: scale(1); opacity: 1; }
-        .polaroid { background: white; padding: 12px 12px 50px 12px; box-shadow: 0 20px 50px rgba(0,0,0,0.3); border-radius: 2px; width: 85%; max-width: 260px; margin: 0 auto; position: relative; }
-        .polaroid img { width: 100%; height: auto; border: 1px solid #f9f9f9; display: block; }
-        .polaroid-text { font-family: 'Kanit', sans-serif; font-size: 0.85rem; color: #666; margin-top: 15px; text-align: center; line-height: 1.4; }
-        .ticket { width: 280px; background: white; border-radius: 15px; box-shadow: 0 15px 35px rgba(0,0,0,0.2); border: 2px solid var(--primary); overflow: hidden; }
-        .ticket-header { background: var(--primary); color: white; padding: 10px; font-size: 0.7rem; font-weight: 600; text-align: center; }
-        .ticket-content { padding: 30px 20px; border-bottom: 2.5px dashed var(--secondary); text-align: center; }
-        .ticket-prize { font-size: 0.95rem; font-weight: 600; color: var(--primary); }
-        .ticket-footer { font-size: 0.55rem; color: #bbb; padding: 8px; text-align: center; }
+        /* --- Modal --- */
+        .modal { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(8px); z-index: 10000; align-items: center; justify-content: center; }
+        .modal.active { display: flex; }
+        .modal-content { display: flex; flex-direction: column; align-items: center; width: 90%; max-width: 400px; }
+        .polaroid { background: white; padding: 12px 12px 50px 12px; border-radius: 2px; box-shadow: 0 20px 50px rgba(0,0,0,0.3); }
+        .polaroid img { width: 100%; max-width: 260px; height: auto; }
+        .polaroid-text { font-family: 'Kanit'; font-size: 0.9rem; margin-top: 15px; text-align: center; }
+        
+        .ticket { width: 280px; background: white; border-radius: 15px; overflow: hidden; border: 2px solid var(--primary); }
+        .ticket-header { background: var(--primary); color: white; padding: 10px; font-weight: 600; }
+        .ticket-content { padding: 30px 20px; border-bottom: 2px dashed var(--secondary); text-align: center; }
+        .ticket-prize { font-size: 1.1rem; color: var(--primary); font-weight: 600; }
 
-        nav { position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%); background: rgba(255,255,255,0.95); padding: 10px 25px; border-radius: 40px; display: flex; gap: 20px; z-index: 1000; box-shadow: 0 5px 20px rgba(0,0,0,0.1); }
+        nav { position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%); background: white; padding: 10px 25px; border-radius: 40px; display: flex; gap: 20px; z-index: 1000; box-shadow: 0 5px 20px rgba(0,0,0,0.1); }
         nav a { text-decoration: none; font-size: 24px; }
-        .btn-close { background: var(--primary); color: white; border: none; padding: 12px 35px; border-radius: 30px; cursor: pointer; margin-top: 25px; font-family: 'Prompt'; font-weight: 600; }
-        .floating-heart { position: absolute; color: #ff8fa3; opacity: 0.8; pointer-events: none; z-index: 10001; animation: floatUp 3s linear forwards; }
-        @keyframes floatUp { 0% { transform: translateY(100vh) scale(0.5); opacity: 0; } 20% { opacity: 0.8; } 100% { transform: translateY(-10vh) translateX(var(--random-x)) scale(1.5); opacity: 0; } }
+        .btn-close { background: var(--primary); color: white; border: none; padding: 12px 35px; border-radius: 30px; margin-top: 25px; font-family: 'Prompt'; }
+        .floating-heart { position: absolute; color: #ff8fa3; pointer-events: none; z-index: 10001; animation: floatUp 3s linear forwards; }
+        @keyframes floatUp { 0% { transform: translateY(100vh); opacity: 0; } 100% { transform: translateY(-10vh); opacity: 0; } }
     </style>
 </head>
 <body id="body-content">
@@ -135,8 +133,8 @@
             <div class="dot"></div><div class="dot"></div><div class="dot"></div>
         </div>
         <div class="keypad">
-            <div class="key" onclick="addNum('2')">2</div><div class="key" onclick="addNum('4')">4</div><div class="key" onclick="addNum('1')">1</div>
-            <div class="key" onclick="addNum('2')">2</div><div class="key" onclick="addNum('5')">5</div><div class="key" onclick="addNum('3')">3</div>
+            <div class="key" onclick="addNum('1')">1</div><div class="key" onclick="addNum('2')">2</div><div class="key" onclick="addNum('3')">3</div>
+            <div class="key" onclick="addNum('4')">4</div><div class="key" onclick="addNum('5')">5</div><div class="key" onclick="addNum('6')">6</div>
             <div class="key" onclick="addNum('7')">7</div><div class="key" onclick="addNum('8')">8</div><div class="key" onclick="addNum('9')">9</div>
             <div style="width:80px"></div><div class="key" onclick="addNum('0')">0</div><div class="key" onclick="clearPass()" style="font-size:14px; color:var(--primary);">ลบ</div>
         </div>
@@ -158,20 +156,21 @@
             </section>
 
             <section id="photo-sec">
-                <h2 style="font-family: 'Prompt'; font-size: 1.4rem; color: var(--primary); margin-bottom: 35px; text-align: center;">Happy Anniversary</h2>
-                <div class="number-grid">
-                    <img src="photo1.jpg" class="img-item n1" onclick="zoomImg(this, '')">
-                    <img src="photo2.jpg" class="img-item n2" onclick="zoomImg(this, '')">
-                    <img src="photo3.jpg" class="img-item n3" onclick="zoomImg(this, '')">
-                    <img src="photo4.jpg" class="img-item n4" onclick="zoomImg(this, '')">
-                    <img src="photo5.jpg" class="img-item n5" onclick="zoomImg(this, '')">
-                    <img src="photo6.jpg" class="img-item n6" onclick="zoomImg(this, '')">
-                    <!-- Additional photos if needed for floating effects -->
-                    <div style="display:none">
-                        <img src="photo7.jpg" id="extra7" onclick="zoomImg(this, 'โอ้ะน่าร้ากก')">
-                        <img src="photo8.jpg" id="extra8" onclick="zoomImg(this, 'มีกำลังใจสอบระะ')">
-                        <img src="photo9.jpg" id="extra9" onclick="zoomImg(this, 'โอัะโอ่วว')">
-                        <img src="photo10.jpg" id="extra10" onclick="zoomImg(this, 'ปัดเป๋เรยย')">
+                <h2 style="font-size: 1.4rem; color: var(--primary); margin-bottom: 30px;">Happy Anniversary</h2>
+                <div class="photo-container">
+                    <div class="number-grid">
+                        <img src="photo1.jpg" class="img-item n1" onclick="zoomImg(this, 'น่ารักจังคะ')">
+                        <img src="photo2.jpg" class="img-item n2" onclick="zoomImg(this, 'มีคนคิดถึงมาหา')">
+                        <img src="photo3.jpg" class="img-item n3" onclick="zoomImg(this, 'เด่กติดเเฟน')">
+                        <img src="photo4.jpg" class="img-item n4" onclick="zoomImg(this, 'น่ารักช่ะม๊า')">
+                        <img src="photo5.jpg" class="img-item n5" onclick="zoomImg(this, 'จับมือกันเเน่นๆนะคะ')">
+                        <img src="photo6.jpg" class="img-item n6" onclick="zoomImg(this, 'สาวหวานน')">
+                    </div>
+                    <div class="extra-photos">
+                        <img src="photo7.jpg" class="extra-item" onclick="zoomImg(this, 'โอ้ะน่าร้ากก')">
+                        <img src="photo8.jpg" class="extra-item" onclick="zoomImg(this, 'มีกำลังใจสอบระะ')">
+                        <img src="photo9.jpg" class="extra-item" onclick="zoomImg(this, 'โอัะโอ่วว')">
+                        <img src="photo10.jpg" class="extra-item" onclick="zoomImg(this, 'ปัดเป๋เรยย')">
                     </div>
                 </div>
             </section>
@@ -180,9 +179,9 @@
                 <div class="envelope-container">
                     <div class="envelope" id="env" onclick="openLetter()">
                         <div class="paper" id="paper">
-                            <div id="typewriter" style="font-size: 0.82rem; line-height: 1.6; color: #555; white-space: pre-wrap; text-align: center;"></div> </div>
+                            <div id="typewriter" style="font-size: 0.85rem; line-height: 1.6; color: #555; white-space: pre-wrap;"></div> </div>
                     </div>
-                    <div class="tap-text" id="env-text">แตะเพื่ออ่านจดหมาย ♡</div>
+                    <div class="tap-text" id="env-text" style="margin-top:20px; color:var(--primary);">แตะเพื่ออ่านจดหมาย ♡</div>
                 </div>
             </section>
 
@@ -207,7 +206,7 @@
     </div>
 
     <div id="modal" class="modal">
-        <div class="modal-content" id="modal-box">
+        <div class="modal-content">
             <div id="photo-area">
                 <div class="polaroid">
                     <img id="modal-img" src="">
@@ -216,13 +215,10 @@
             </div>
             <div id="coupon-area" style="display: none;">
                 <div class="ticket">
-                    <div class="ticket-header">LOVE COUPON</div>
+                    <div class="ticket-header" style="text-align:center;">LOVE COUPON</div>
                     <div class="ticket-content">
-                        <div style="font-size: 0.7rem; color: #999;">คูปองนี้มอบให้...</div>
                         <div id="coupon-text" class="ticket-prize"></div>
-                        <div style="font-size: 0.7rem; color: #999; margin-top: 5px;">แด่คนสำคัญของหัวใจ</div>
                     </div>
-                    <div class="ticket-footer">* แคปหน้าจอเพื่อใช้สิทธิ์ได้ตลอดเวลา *</div>
                 </div>
             </div>
             <button class="btn-close" onclick="closeModal()">ปิด ♡</button>
@@ -234,14 +230,7 @@
     <script>
         let pass = "";
         const target = "241253"; 
-        const errorMsgs = ["รหัสผิดนะเจ้าคนดี 🥺", "จำไม่ได้หรอเนี่ย งอนละนะ! 😤", "เกือบถูกแล้ว ลองอีกนิดดด", "อ๊ะ! ผิดแล้วตัวแสบ 😜"];
-        const prizes = [
-            "บัตรตามใจจพุ่พุ่1วัน",
-            "เลี้ยงของกินพุ่พุ่2วัน",
-            "คูปองงดบ่น1วัน",
-            "คูปองพาไปดูหนัง1เรื่อง",
-            "คูปองไม่งอน2วัน"
-        ];
+        const prizes = ["บัตรตามใจจพุ่พุ่1วัน", "เลี้ยงของกินพุ่พุ่2วัน", "คูปองงดบ่น1วัน", "คูปองพาไปดูหนัง1เรื่อง", "คูปองไม่งอน2วัน"];
 
         function addNum(n) {
             if(pass.length < 6) {
@@ -254,7 +243,7 @@
                         document.getElementById('bgm').play().catch(() => {});
                         startTimer();
                     } else {
-                        document.getElementById('error-msg').innerText = errorMsgs[Math.floor(Math.random()*errorMsgs.length)];
+                        document.getElementById('error-msg').innerText = "รหัสผิดนะเจ้าคนดี 🥺";
                         document.getElementById('login-page').classList.add('shake');
                         setTimeout(() => { document.getElementById('login-page').classList.remove('shake'); clearPass(); }, 400);
                     }
@@ -281,30 +270,13 @@
             }, 1000);
         }
 
-        function startFloatingHearts() {
-            const container = document.getElementById('modal');
-            const interval = setInterval(() => {
-                if(!container.classList.contains('active')) { clearInterval(interval); return; }
-                const heart = document.createElement('div');
-                heart.className = 'floating-heart';
-                heart.innerHTML = '❤️';
-                heart.style.left = Math.random() * 100 + 'vw';
-                heart.style.setProperty('--random-x', (Math.random() * 200 - 100) + 'px');
-                heart.style.fontSize = (Math.random() * 20 + 15) + 'px';
-                heart.style.animationDuration = (Math.random() * 2 + 2) + 's';
-                container.appendChild(heart);
-                setTimeout(() => heart.remove(), 4000);
-            }, 200);
-        }
-
         function zoomImg(el, caption) {
             document.getElementById('photo-area').style.display = 'block';
             document.getElementById('coupon-area').style.display = 'none';
             document.getElementById('modal-img').src = el.src;
             document.getElementById('img-caption').innerText = caption;
             document.getElementById('body-content').classList.add('modal-active');
-            document.getElementById('modal').style.display = 'flex';
-            setTimeout(() => { document.getElementById('modal').classList.add('active'); startFloatingHearts(); }, 10);
+            document.getElementById('modal').classList.add('active');
         }
 
         function openLetter() {
@@ -320,32 +292,22 @@
                         setTimeout(type, 50);
                     }
                 }
-                setTimeout(type, 1000);
+                setTimeout(type, 800);
             }
         }
 
         function pickBox(el, index) {
             if(el.innerText === "✨") return;
-            el.style.animation = 'none';
-            el.offsetHeight;
-            el.classList.add('box-selected-shake');
-            setTimeout(() => {
-                const prize = prizes[index]; 
-                document.getElementById('photo-area').style.display = 'none';
-                document.getElementById('coupon-area').style.display = 'block';
-                document.getElementById('coupon-text').innerText = prize;
-                document.getElementById('body-content').classList.add('modal-active');
-                document.getElementById('modal').style.display = 'flex';
-                setTimeout(() => { document.getElementById('modal').classList.add('active'); startFloatingHearts(); }, 10);
-                el.classList.remove('box-selected-shake');
-                el.innerText = "✨";
-            }, 800);
+            el.innerText = "✨";
+            document.getElementById('photo-area').style.display = 'none';
+            document.getElementById('coupon-area').style.display = 'block';
+            document.getElementById('coupon-text').innerText = prizes[index];
+            document.getElementById('modal').classList.add('active');
         }
 
         function closeModal() {
             document.getElementById('modal').classList.remove('active');
             document.getElementById('body-content').classList.remove('modal-active');
-            setTimeout(() => { document.getElementById('modal').style.display = 'none'; }, 400);
         }
     </script>
 </body>
